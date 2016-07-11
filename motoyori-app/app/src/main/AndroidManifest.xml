@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".KaiwaActivity"></activity>
+        <activity android:name=".KaiwaActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".IchiranActivity" />
     </application>
 
 </manifest>
