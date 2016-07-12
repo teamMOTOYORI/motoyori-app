@@ -89,4 +89,13 @@
         android:layout_below="@+id/deletebutton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="debug"
+        android:id="@+id/debugbutton"
+        android:layout_alignTop="@+id/ichiranbutton"
+        android:layout_toRightOf="@+id/ichiranbutton"
+        android:layout_toEndOf="@+id/ichiranbutton" />
 </RelativeLayout>
