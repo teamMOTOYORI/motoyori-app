@@ -20,7 +20,7 @@ public class KaiwaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_kaiwa);
         textView1 = (TextView) this.findViewById(R.id.textView1);
         textView2 = (TextView) this.findViewById(R.id.textView2);
         editText = (EditText) this.findViewById(R.id.editText);

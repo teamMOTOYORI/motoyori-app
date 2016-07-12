@@ -34,12 +34,12 @@ public class MotoyoriKun {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(input));
+            String sepa = ",";
             while (true) {
                 String line = br.readLine();
                 if (line == null) {
                     break;
                 }
-                String sepa = ",";
                 if (line.contains(sepa)) {
                     String[] keyValue = line.split(sepa, 2);
                     String key = keyValue[0];

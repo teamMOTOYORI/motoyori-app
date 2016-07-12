@@ -1,36 +1,34 @@
 package com.teammotoyori.motoyori_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-
-    HashMap<String, String> dic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView TextView1 = (TextView) this.findViewById(R.id.TextView1);
-        TextView TextView2 = (TextView) this.findViewById(R.id.TextView2);
-        EditText editText = (EditText) this.findViewById(R.id.editText);
-        Button button1 = (Button) this.findViewById(R.id.button1);
+        Button button1 = (Button)findViewById(R.id.button);
+        Button button2 = (Button)findViewById(R.id.button2);
 
-        HashMap<String,String> map = new HashMap<String,String>();
-
-        try {
-            dic = MotoyoriLib.openFile(getAssets().open("aa"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, KaiwaActivity.class);
+                startActivity(intent);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
