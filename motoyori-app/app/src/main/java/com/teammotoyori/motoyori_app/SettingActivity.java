@@ -32,16 +32,23 @@ public class SettingActivity extends AppCompatActivity {
                 EditText keyaddText = (EditText)findViewById(R.id.keyaddtext);
                 EditText valueaddText = (EditText)findViewById(R.id.valueaddtext);
                 String key = keyaddText.getText().toString();
-                String value = valueaddText.getText().toString();
-                try{
-                        OutputStream out = openFileOutput("save.txt",MODE_APPEND);
-                        PrintWriter writer =
-                            new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
-                        writer.append(key + "," + value + "\n");
-                        writer.close();
-                }catch(IOException e){
-                        e.printStackTrace();
+                if(!key.contains(",")){
+
+                    String value = valueaddText.getText().toString();
+                    try{
+                            OutputStream out = openFileOutput("save.txt",MODE_APPEND);
+                            PrintWriter writer =
+                                new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                            writer.append(key + "," + value + "\n");
+                            writer.close();
+                            Toast.makeText(v.getContext(), "Key: " + key + "\n" + "Value: " + value + "\nを追加しました"   ,Toast.LENGTH_SHORT).show();
+                    }catch(IOException e){
+                            e.printStackTrace();
+                    }
+                } else{
+                    Toast.makeText(v.getContext(), "' が含まれています。" ,Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -78,6 +85,7 @@ public class SettingActivity extends AppCompatActivity {
                             writer.append(map.get(key) + "\n");
                         }
                         writer.close();
+                        Toast.makeText(v.getContext(), "Key: " + deletekey + "を削除しました。" ,Toast.LENGTH_SHORT).show();
                         //out.flush();
                         //out.close();
                     }catch(IOException e){
