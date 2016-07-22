@@ -3,6 +3,7 @@ package com.teammotoyori.motoyori_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,47 +57,61 @@ public class SettingActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    InputStream in = openFileInput("save.txt");
-                        BufferedReader reader =
-                            new BufferedReader(new InputStreamReader(in,"UTF-8"));
-                        EditText keydeleteText = (EditText)findViewById(R.id.keydeletetext);
-                        String deletekey = keydeleteText.getText().toString();
-                        Map<String,String> map = new LinkedHashMap<String,String>();
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        String sepa = ",";
-                        while((line = reader.readLine())!= null) {
-                            if (line.contains(sepa)) {
-                                String[] keyValue = line.split(sepa, 2);
-                                String key = keyValue[0];
-                                String value = keyValue[1];
-                                map.put(key, key + "," + value);
-                            }
+                InputStream in = null;
+                Map<String, String> map = new LinkedHashMap<>();
+                try {
+                    in = openFileInput("save.txt");
+                    BufferedReader reader =
+                            new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    String line;
+                    String sepa = ",";
+                    while ((line = reader.readLine()) != null) {
+                        if (line.contains(sepa)) {
+                            String[] keyValue = line.split(sepa, 2);
+                            String key = keyValue[0];
+                            String value = keyValue[1];
+                            map.put(key, key + "," + value);
                         }
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    if(in != null) {
+                        try {
+                            in.close();
+                        } catch (IOException ee) {
+                        }
+                    }
+                }
 
-                        map.remove(deletekey);
-
+                EditText keydeleteText = (EditText) findViewById(R.id.keydeletetext);
+                String deletekey = keydeleteText.getText().toString();
+                if (map.containsKey(deletekey)) {
+                    map.remove(deletekey);
+                    OutputStream out = null;
                     try{
-                        OutputStream out = openFileOutput("save.txt",MODE_PRIVATE);
+                        out = openFileOutput("save.txt",MODE_PRIVATE);
                         PrintWriter writer =
                                 new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
                         for (String key : map.keySet()) {
                             writer.append(map.get(key) + "\n");
                         }
-                        writer.close();
                         Toast.makeText(v.getContext(), "Key: " + deletekey + "を削除しました。" ,Toast.LENGTH_SHORT).show();
-                        //out.flush();
-                        //out.close();
+                        writer.close();
+                        out.flush();
+                        out.close();
                     }catch(IOException e){
+                        if(out != null) {
+                            try {
+                                out.close();
+                            } catch (IOException ee) {
+                            }
+                        }
                         e.printStackTrace();
                     }
 
-                        reader.close();
-                }catch(IOException e){
-                        e.printStackTrace();
+                } else {
+                    Toast.makeText(v.getContext(), "Key: " + deletekey + "は含まれていません。", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -109,25 +124,35 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        Button debugButton = (Button)findViewById(R.id.debugbutton);
-        debugButton.setOnClickListener(new View.OnClickListener() {
+        Button defaultButton = (Button)findViewById(R.id.defaultbutton);
+        defaultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputStream in = null;
                 OutputStream out = null;
                 try{
+                    in = getAssets().open("test.csv");
                     out = openFileOutput("save.txt",MODE_PRIVATE);
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
-                    for(int i = 1; i < 50; i++) {
-                        StringBuilder sb = new StringBuilder();
-                        for(int j = 0; j < i; j++) {
-                            sb.append("α");
-                        }
-                        writer.append(sb.toString() + ",test" + i +  "\n");
+                    PrintWriter writer =
+                            new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                    BufferedReader reader =
+                            new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    String line;
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        writer.append(line.toString() + "\n");
                     }
+                    in.close();
                     writer.close();
                     out.flush();
                     out.close();
                 }catch(IOException e){
+                    if(in != null) {
+                        try {
+                            in.close();
+                        }catch (IOException ee) {
+                        }
+                    }
                     if(out != null) {
                         try {
                             out.close();
