@@ -28,7 +28,8 @@ public class KaiwaActivity extends AppCompatActivity {
 
         InputStream is = null;
         try {
-            is = getAssets().open("test.csv");
+            //is = getAssets().open("test.csv");
+            is =  openFileInput("save.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }

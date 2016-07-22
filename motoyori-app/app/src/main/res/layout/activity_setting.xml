@@ -96,8 +96,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="debug"
-        android:id="@+id/debugbutton"
+        android:text="初期化"
+        android:id="@+id/defaultbutton"
         android:layout_alignTop="@+id/ichiranbutton"
         android:layout_toRightOf="@+id/ichiranbutton"
         android:layout_toEndOf="@+id/ichiranbutton" />
