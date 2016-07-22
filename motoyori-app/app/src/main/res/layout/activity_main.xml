@@ -7,24 +7,38 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.teammotoyori.motoyori_app.MainActivity"
-    android:background="#FFD464">
+    tools:context="com.teammotoyori.motoyori_app.KaiwaActivity"
+    android:background="#0288d1">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kaiwa"
-        android:id="@+id/button"
+        android:text="もとより会話アプリ"
+        android:textStyle="bold|italic"
+        android:textSize="25dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="85dp" />
+        android:layout_marginTop="158dp"
+        android:id="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Setting"
-        android:id="@+id/button2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="start"
+        android:id="@+id/button"
+        android:layout_marginTop="73dp"
+        android:background="#65ccd5"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONFIG"
+        android:id="@+id/button2"
+        android:background="#6eb4e0"
+        android:layout_alignTop="@+id/button"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 </RelativeLayout>
