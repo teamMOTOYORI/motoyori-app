@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/keyaddtext"
         android:inputType="text"
+        android:maxLength="40"
         android:layout_below="@+id/keytext"
         android:layout_alignLeft="@+id/keytext"
         android:layout_alignStart="@+id/keytext" />
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/valueaddtext"
         android:inputType="text"
+        android:maxLength="100"
         android:layout_below="@+id/valuetext"
         android:layout_alignLeft="@+id/valuetext"
         android:layout_alignStart="@+id/valuetext" />
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/keydeletetext"
         android:inputType="text"
+        android:maxLength="40"
         android:layout_below="@+id/keytext2"
         android:layout_alignLeft="@+id/keytext2"
         android:layout_alignStart="@+id/keytext2" />

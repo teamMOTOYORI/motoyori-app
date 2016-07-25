@@ -144,7 +144,7 @@ public class SettingActivity extends AppCompatActivity {
 
                                 // OK ボタンクリック処理
                                 try{
-                                    in = getAssets().open("test.csv");
+                                    in = getAssets().open("save.txt");
                                     out = openFileOutput("save.txt",MODE_PRIVATE);
                                     PrintWriter writer =
                                             new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
