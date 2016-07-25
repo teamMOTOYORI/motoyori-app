@@ -1,5 +1,7 @@
 package com.teammotoyori.motoyori_app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -128,39 +130,64 @@ public class SettingActivity extends AppCompatActivity {
         defaultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputStream in = null;
-                OutputStream out = null;
-                try{
-                    in = getAssets().open("test.csv");
-                    out = openFileOutput("save.txt",MODE_PRIVATE);
-                    PrintWriter writer =
-                            new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
-                    BufferedReader reader =
-                            new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                    String line;
-                    StringBuilder sb = new StringBuilder();
-                    while ((line = reader.readLine()) != null) {
-                        writer.append(line.toString() + "\n");
-                    }
-                    in.close();
-                    writer.close();
-                    out.flush();
-                    out.close();
-                }catch(IOException e){
-                    if(in != null) {
-                        try {
-                            in.close();
-                        }catch (IOException ee) {
-                        }
-                    }
-                    if(out != null) {
-                        try {
-                            out.close();
-                        }catch (IOException ee) {
-                        }
-                    }
-                    e.printStackTrace();
-                }
+
+                // 確認ダイアログの生成
+                AlertDialog.Builder alertDlg = new AlertDialog.Builder(SettingActivity.this);
+                alertDlg.setTitle("確認");
+                alertDlg.setMessage("初期化してもよろしいですか");
+                alertDlg.setPositiveButton(
+                        "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                InputStream in = null;
+                                OutputStream out = null;
+
+                                // OK ボタンクリック処理
+                                try{
+                                    in = getAssets().open("test.csv");
+                                    out = openFileOutput("save.txt",MODE_PRIVATE);
+                                    PrintWriter writer =
+                                            new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                                    BufferedReader reader =
+                                            new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                                    String line;
+                                    StringBuilder sb = new StringBuilder();
+                                    while ((line = reader.readLine()) != null) {
+                                        writer.append(line.toString() + "\n");
+                                    }
+                                    in.close();
+                                    writer.close();
+                                    out.flush();
+                                    out.close();
+                                }catch(IOException e){
+                                    if(in != null) {
+                                        try {
+                                            in.close();
+                                        }catch (IOException ee) {
+                                        }
+                                    }
+                                    if(out != null) {
+                                        try {
+                                            out.close();
+                                        }catch (IOException ee) {
+                                        }
+                                    }
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                alertDlg.setNegativeButton(
+                        "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Cancel ボタンクリック処理
+                            }
+                        });
+
+                // 表示
+                alertDlg.create().show();
+
+
             }
         });
     }
