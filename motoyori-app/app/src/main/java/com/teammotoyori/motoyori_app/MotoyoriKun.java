@@ -13,16 +13,18 @@ import java.util.HashMap;
  */
 public class MotoyoriKun {
 
-    HashMap<String, String> dic;    //  もとよりくん辞書データ
-    TextView textView;             //  もとよりくんの会話のテキストビュー
+    private HashMap<String, String> dic;    //  もとよりくん辞書データ
+    private TextView textView;             //  もとよりくんの会話のテキストビュー
+    private final String other = "知らないねえ";
 
     /**
      * @param tv もとよりくんが話す場所(TextView)
      * @param input もとよりくん辞書データのInputStream
      */
-    public MotoyoriKun(TextView tv, InputStream input) {
+    public MotoyoriKun(TextView tv, InputStream input, String begin) {
         this.textView = tv;
         dic = openFile(input);
+        tv.setText(begin);
     }
     /**
      インプットストリームからHashMapを作る関数
@@ -64,16 +66,22 @@ public class MotoyoriKun {
 
     public void talk(String s) {
         boolean flag = false;
+        int maxCount = 0;
+        String talk = "";
         for(String key : dic.keySet()) {
             if(s.contains(key)) {
-                String[] ss = dic.get(key).split(",");
-                textView.setText(ss[0]);
-
+                String ss = dic.get(key);
+                if(maxCount < key.length()) {
+                    maxCount = key.length();
+                    talk = ss;
+                }
                 flag = true;
             }
         }
-        if(!flag) {
-            textView.setText("知らんなあ");
+        if(flag) {
+            textView.setText(talk);
+        } else {
+            textView.setText(other);
         }
     }
 }
