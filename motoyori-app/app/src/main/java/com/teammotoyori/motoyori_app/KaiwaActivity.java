@@ -26,15 +26,16 @@ public class KaiwaActivity extends AppCompatActivity {
         editText = (EditText) this.findViewById(R.id.editText);
         Button button1 = (Button) this.findViewById(R.id.button1);
 
+        textView1.setText("");
+
         InputStream is = null;
         try {
-            //is = getAssets().open("test.csv");
             is =  openFileInput("save.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        motoyori = new MotoyoriKun(textView2, is);
+        motoyori = new MotoyoriKun(textView2, is, "やあ");
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
